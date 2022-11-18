@@ -52,7 +52,6 @@ class ViewWindow(QMainWindow, Ui_MainWindow):  # Основной виджет -
             self)  # Так же, еще переопределена кнопка в углу таблицы - если ее нажать, то будет Event,
         # который выберет все элементы каталога.
         self.buffered_tag_index = 0
-        self.initialize_base()
         self.tableWidget.itemSelectionChanged.connect(self.show_selected_items)
         self.current_selection = []
         self.current_selected_tag_index = 0
@@ -421,6 +420,8 @@ class ViewWindow(QMainWindow, Ui_MainWindow):  # Основной виджет -
         self.current_tag_name = ''
         self.current_tag_name_id = 0
         self.table_widget_initialize_folder()
+        self.show_imgs_by_tag_button.setEnabled(True)
+        self.show_imgs_by_catalog_button.setEnabled(False)
 
     def show_by_tag(self):  # функция вызова запуска просмотра таблицы через тэги изображений.
         self.mode = 'tags'
@@ -431,6 +432,8 @@ class ViewWindow(QMainWindow, Ui_MainWindow):  # Основной виджет -
         self.current_tag_name = tag_name
         self.current_tag_name_id = tag_index_in_tags
         self.table_widget_initialize_tags()
+        self.show_imgs_by_tag_button.setEnabled(False)
+        self.show_imgs_by_catalog_button.setEnabled(True)
 
     def add_image(
             self):  # Функция добавления файла в глобальный каталог. И обработки стандартных исключений для фото-файлов.
@@ -506,6 +509,7 @@ class ViewWindow(QMainWindow, Ui_MainWindow):  # Основной виджет -
             try:
                 self.base_path = dialog.getOpenFileName(self, 'Выберите путь к базе')[0]
                 shutil.copy(self.base_path, self.run_dir + '/tags_sinsaw.sqlite')
+                self.initialize_base()
                 if self.base_path == '':
                     raise ValueError('Путь к базе не найден')
                 elif self.base_path.split('.')[-1] != 'sqlite':
@@ -695,10 +699,10 @@ class ViewWindow(QMainWindow, Ui_MainWindow):  # Основной виджет -
             QMessageBox.Yes, QMessageBox.No)
         if valid == QMessageBox.Yes:
             self.log_out_label.setText(f"Тэг {tag_name} удалён")
+            tag_index_in_tags = list(map(lambda x: x[1], self.tags)).index(tag_name)
             self.curs.execute(
                 f'''delete from tags where id = (SELECT id from tags where name = '{tag_name}')''').fetchall()
             self.base_conection.commit()
-            tag_index_in_tags = list(map(lambda x: x[1], self.tags)).index(tag_name)
             new_tags = self.tags
             new_tags.pop(tag_index_in_tags)
             self.tags = new_tags
@@ -715,6 +719,8 @@ class ViewWindow(QMainWindow, Ui_MainWindow):  # Основной виджет -
                 self.table_widget_initialize_tags()
             else:
                 self.table_widget_initialize_folder()
+            if not self.tags:
+                self.tag_choose_box.setEnabled(False)
 
     def delete_image(self):  # Функция удаления выбранного изображения(ий)
         unformated_selection = list(map(lambda x: x.text(), self.tableWidget.selectedItems()))
@@ -801,24 +807,36 @@ class ViewWindow(QMainWindow, Ui_MainWindow):  # Основной виджет -
         else:
             self.current_selected_tag_index = 0
             self.tag_deleted = False
-        print(self.current_selected_tag_text)
+
+        # print(self.current_selected_tag_text)
         self.tag_choose_box.clear()
         if self.tags:
+            self.current_selected_tag_id = self.tags[self.current_selected_tag_index][0]
             self.tag_choose_box.setEnabled(True)
             self.delete_tag_button.setEnabled(True)
+            if self.images:
+                res = self.curs.execute(f'''
+                SELECT * FROM image_tags WHERE id_tag = '{self.current_selected_tag_id}'
+                ''').fetchall()
+                if res:
+                    self.show_imgs_by_tag_button.setEnabled(True)
+                else:
+                    self.show_imgs_by_tag_button.setEnabled(False)
+
             if len(self.tags) > 1:
                 buff_tags = self.tags
                 new_tags = [self.tags[self.current_selected_tag_index]]
-                buff_tags.pop(buff_tags.index(new_tags[0]))
+                buff_tags.pop(buff_tags.index(new_tags[self.current_selected_tag_index]))
                 new_tags.extend(buff_tags)
+                self.tags = new_tags
                 for _ in new_tags:
                     self.tag_choose_box.addItem(_[1])
             else:
                 self.tag_choose_box.addItem(self.tags[0][1])
-
         else:
             self.tag_choose_box.setEnabled(False)
             self.delete_tag_button.setEnabled(False)
+            self.show_imgs_by_tag_button.setEnabled(False)
 
     def table_widget_initialize_folder(
             self):  # Функция выполняет построение таблицы для работы с изображениями, выбранными по глобальному
@@ -841,7 +859,12 @@ class ViewWindow(QMainWindow, Ui_MainWindow):  # Основной виджет -
             self.tableWidget.setHorizontalHeaderLabels(self.titles)
             self.dupe_check_button.setEnabled(True)
             self.show_imgs_by_catalog_button.setEnabled(False)
-            self.show_imgs_by_tag_button.setEnabled(True)
+            if self.tags:
+                res = self.curs.execute(f'''
+                                SELECT * FROM image_tags WHERE id_tag = '{self.current_selected_tag_id}'
+                                ''').fetchall()
+            if self.tags and res:
+                self.show_imgs_by_tag_button.setEnabled(True)
             self.leave_out_button.setEnabled(True)
 
     def table_widget_initialize_tags(
@@ -905,11 +928,23 @@ class ViewWindow(QMainWindow, Ui_MainWindow):  # Основной виджет -
             self.base_conection.commit()
 
     def run(self):  # Функция, которая готовит всё к нормальной работе.
-        self.repair_autoincrement()
-        self.show_imgs_by_catalog_button.setEnabled(False)
-        print(self.images)
         self.run_time = get_formated_date(time()).split(' ')[::]
         self.run_dir = os.getcwd().replace('\\', '/')
+        self.initialize_base()
+        self.repair_autoincrement()
+        if not self.images and not self.tags:
+            self.show_imgs_by_catalog_button.setEnabled(False)
+            self.show_imgs_by_tag_button.setEnabled(False)
+        if self.tags and self.current_selected_tag_id:
+            res = self.curs.execute(f'''
+                        SELECT * FROM image_tags WHERE id_tag = '{self.current_selected_tag_id}'
+                        ''').fetchall()
+            if not res:
+                self.show_imgs_by_tag_button.setEnabled(False)
+
+
+
+        print(self.images)
 
         self.min_path = ('miniatures' + f"_{self.run_time[0]}_{self.run_time[1]}").replace(':', '.')
         if not os.path.exists(self.min_path):
@@ -923,3 +958,4 @@ if __name__ == '__main__':
     ex = ViewWindow()
     ex.show()
     sys.exit(app.exec_())
+
