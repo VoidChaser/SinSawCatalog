@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1127</width>
-    <height>800</height>
+    <width>730</width>
+    <height>771</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -51,7 +51,7 @@
           <item>
            <widget class="QTableWidget" name="tableWidget">
             <property name="sizePolicy">
-             <sizepolicy hsizetype="MinimumExpanding" vsizetype="Expanding">
+             <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
@@ -91,6 +91,19 @@
             </attribute>
            </widget>
           </item>
+          <item>
+           <spacer name="horizontalSpacer_2">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>250</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
          </layout>
         </item>
         <item>
@@ -103,7 +116,7 @@
           </property>
           <property name="sizeHint" stdset="0">
            <size>
-            <width>20</width>
+            <width>1</width>
             <height>500</height>
            </size>
           </property>
@@ -129,7 +142,7 @@
           <item>
            <widget class="QLabel" name="image_label">
             <property name="sizePolicy">
-             <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+             <sizepolicy hsizetype="Minimum" vsizetype="MinimumExpanding">
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
@@ -166,7 +179,7 @@
              <bool>true</bool>
             </property>
             <property name="sizePolicy">
-             <sizepolicy hsizetype="MinimumExpanding" vsizetype="Minimum">
+             <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
@@ -198,14 +211,14 @@
                <bool>false</bool>
               </property>
               <property name="sizePolicy">
-               <sizepolicy hsizetype="MinimumExpanding" vsizetype="Minimum">
+               <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
               </property>
               <property name="minimumSize">
                <size>
-                <width>0</width>
+                <width>30</width>
                 <height>20</height>
                </size>
               </property>
@@ -226,14 +239,14 @@
                <bool>false</bool>
               </property>
               <property name="sizePolicy">
-               <sizepolicy hsizetype="MinimumExpanding" vsizetype="Minimum">
+               <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
               </property>
               <property name="minimumSize">
                <size>
-                <width>0</width>
+                <width>30</width>
                 <height>20</height>
                </size>
               </property>
@@ -254,14 +267,14 @@
                <bool>false</bool>
               </property>
               <property name="sizePolicy">
-               <sizepolicy hsizetype="MinimumExpanding" vsizetype="Minimum">
+               <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
               </property>
               <property name="minimumSize">
                <size>
-                <width>0</width>
+                <width>30</width>
                 <height>20</height>
                </size>
               </property>
@@ -282,14 +295,14 @@
                <bool>false</bool>
               </property>
               <property name="sizePolicy">
-               <sizepolicy hsizetype="MinimumExpanding" vsizetype="Minimum">
+               <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
               </property>
               <property name="minimumSize">
                <size>
-                <width>0</width>
+                <width>30</width>
                 <height>20</height>
                </size>
               </property>
@@ -311,7 +324,7 @@
             <item>
              <widget class="QLabel" name="tag_name_label">
               <property name="sizePolicy">
-               <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
+               <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
@@ -324,7 +337,7 @@
             <item>
              <widget class="QLineEdit" name="tag_name_edit">
               <property name="sizePolicy">
-               <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+               <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
@@ -334,10 +347,16 @@
             <item>
              <widget class="QPushButton" name="add_tag_button">
               <property name="sizePolicy">
-               <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+               <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>30</width>
+                <height>0</height>
+               </size>
               </property>
               <property name="focusPolicy">
                <enum>Qt::NoFocus</enum>
@@ -353,10 +372,16 @@
                <bool>false</bool>
               </property>
               <property name="sizePolicy">
-               <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+               <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>30</width>
+                <height>0</height>
+               </size>
               </property>
               <property name="focusPolicy">
                <enum>Qt::NoFocus</enum>
@@ -375,6 +400,12 @@
               <property name="enabled">
                <bool>true</bool>
               </property>
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
               <property name="text">
                <string/>
               </property>
@@ -383,7 +414,7 @@
             <item>
              <widget class="QLabel" name="label">
               <property name="sizePolicy">
-               <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
+               <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
@@ -411,7 +442,7 @@
                <bool>false</bool>
               </property>
               <property name="sizePolicy">
-               <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+               <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
@@ -433,7 +464,7 @@
                  <bool>false</bool>
                 </property>
                 <property name="sizePolicy">
-                 <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+                 <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                   <horstretch>0</horstretch>
                   <verstretch>0</verstretch>
                  </sizepolicy>
@@ -442,7 +473,7 @@
                  <enum>Qt::NoFocus</enum>
                 </property>
                 <property name="text">
-                 <string>Добавить тег к этому элементу</string>
+                 <string>Добавить тег </string>
                 </property>
                 <attribute name="buttonGroup">
                  <string notr="true">single_selection_button_group</string>
@@ -455,7 +486,7 @@
                  <bool>false</bool>
                 </property>
                 <property name="sizePolicy">
-                 <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+                 <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                   <horstretch>0</horstretch>
                   <verstretch>0</verstretch>
                  </sizepolicy>
@@ -464,7 +495,7 @@
                  <enum>Qt::NoFocus</enum>
                 </property>
                 <property name="text">
-                 <string>Добавить тэг к всем выбранным элементам</string>
+                 <string>Добавить всем тег</string>
                 </property>
                 <attribute name="buttonGroup">
                  <string notr="true">multi_selection_button_group</string>
@@ -481,7 +512,7 @@
                  <bool>false</bool>
                 </property>
                 <property name="sizePolicy">
-                 <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+                 <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                   <horstretch>0</horstretch>
                   <verstretch>0</verstretch>
                  </sizepolicy>
@@ -490,7 +521,7 @@
                  <enum>Qt::NoFocus</enum>
                 </property>
                 <property name="text">
-                 <string>Удалить выбранный тэг элемента</string>
+                 <string>Удалить тэг</string>
                 </property>
                 <attribute name="buttonGroup">
                  <string notr="true">single_selection_button_group</string>
@@ -503,7 +534,7 @@
                  <bool>false</bool>
                 </property>
                 <property name="sizePolicy">
-                 <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+                 <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                   <horstretch>0</horstretch>
                   <verstretch>0</verstretch>
                  </sizepolicy>
@@ -512,7 +543,7 @@
                  <enum>Qt::NoFocus</enum>
                 </property>
                 <property name="text">
-                 <string>Удалить выбраннй тэг у всех элементов</string>
+                 <string>Удалить у всех тег</string>
                 </property>
                 <attribute name="buttonGroup">
                  <string notr="true">multi_selection_button_group</string>
@@ -529,7 +560,7 @@
                  <bool>false</bool>
                 </property>
                 <property name="sizePolicy">
-                 <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+                 <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                   <horstretch>0</horstretch>
                   <verstretch>0</verstretch>
                  </sizepolicy>
@@ -538,7 +569,7 @@
                  <enum>Qt::NoFocus</enum>
                 </property>
                 <property name="text">
-                 <string>Удалить все тэги элемента</string>
+                 <string>Удалить все тэги</string>
                 </property>
                 <attribute name="buttonGroup">
                  <string notr="true">single_selection_button_group</string>
@@ -551,7 +582,7 @@
                  <bool>false</bool>
                 </property>
                 <property name="sizePolicy">
-                 <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+                 <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                   <horstretch>0</horstretch>
                   <verstretch>0</verstretch>
                  </sizepolicy>
@@ -560,7 +591,7 @@
                  <enum>Qt::NoFocus</enum>
                 </property>
                 <property name="text">
-                 <string>Удалить все тэги всех элементов</string>
+                 <string>Удалить все тэги всех</string>
                 </property>
                 <attribute name="buttonGroup">
                  <string notr="true">multi_selection_button_group</string>
@@ -581,7 +612,7 @@
                  <bool>true</bool>
                 </property>
                 <property name="sizePolicy">
-                 <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+                 <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                   <horstretch>0</horstretch>
                   <verstretch>0</verstretch>
                  </sizepolicy>
@@ -600,7 +631,7 @@
                  <bool>true</bool>
                 </property>
                 <property name="sizePolicy">
-                 <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+                 <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                   <horstretch>0</horstretch>
                   <verstretch>0</verstretch>
                  </sizepolicy>
@@ -623,7 +654,7 @@
                  <bool>false</bool>
                 </property>
                 <property name="sizePolicy">
-                 <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+                 <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                   <horstretch>0</horstretch>
                   <verstretch>0</verstretch>
                  </sizepolicy>
@@ -645,7 +676,7 @@
                  <bool>false</bool>
                 </property>
                 <property name="sizePolicy">
-                 <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+                 <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                   <horstretch>0</horstretch>
                   <verstretch>0</verstretch>
                  </sizepolicy>
@@ -669,7 +700,7 @@
                <bool>false</bool>
               </property>
               <property name="sizePolicy">
-               <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+               <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
@@ -687,7 +718,7 @@
               <item>
                <widget class="QPushButton" name="show_imgs_by_tag_button">
                 <property name="sizePolicy">
-                 <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+                 <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                   <horstretch>0</horstretch>
                   <verstretch>0</verstretch>
                  </sizepolicy>
@@ -696,14 +727,14 @@
                  <enum>Qt::NoFocus</enum>
                 </property>
                 <property name="text">
-                 <string>Отобразить изображения по выбранному тэгу</string>
+                 <string>Изображения по тегу</string>
                 </property>
                </widget>
               </item>
               <item>
                <widget class="QPushButton" name="show_imgs_by_catalog_button">
                 <property name="sizePolicy">
-                 <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+                 <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                   <horstretch>0</horstretch>
                   <verstretch>0</verstretch>
                  </sizepolicy>
@@ -712,14 +743,14 @@
                  <enum>Qt::NoFocus</enum>
                 </property>
                 <property name="text">
-                 <string>Отобразить изображения по каталогу</string>
+                 <string>Изображения по каталогу</string>
                 </property>
                </widget>
               </item>
               <item>
                <widget class="QPushButton" name="leave_out_button">
                 <property name="sizePolicy">
-                 <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+                 <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                   <horstretch>0</horstretch>
                   <verstretch>0</verstretch>
                  </sizepolicy>
@@ -728,7 +759,7 @@
                  <enum>Qt::NoFocus</enum>
                 </property>
                 <property name="text">
-                 <string>Выгрузить выбранное изображение(я)</string>
+                 <string>Выгрузить</string>
                 </property>
                </widget>
               </item>
@@ -737,7 +768,29 @@
            </layout>
           </item>
           <item>
+           <spacer name="horizontalSpacer">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeType">
+             <enum>QSizePolicy::MinimumExpanding</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>100</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
            <widget class="QLabel" name="log_out_label">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
             <property name="text">
              <string/>
             </property>
@@ -746,22 +799,6 @@
          </layout>
         </item>
        </layout>
-      </item>
-      <item>
-       <spacer name="global_spacer">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeType">
-         <enum>QSizePolicy::Minimum</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>100</width>
-          <height>5</height>
-         </size>
-        </property>
-       </spacer>
       </item>
      </layout>
     </item>
@@ -772,7 +809,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1127</width>
+     <width>730</width>
      <height>21</height>
     </rect>
    </property>
@@ -782,9 +819,9 @@
  <resources/>
  <connections/>
  <buttongroups>
+  <buttongroup name="multi_selection_button_group"/>
   <buttongroup name="navigation_arrows_button_group"/>
   <buttongroup name="single_selection_button_group"/>
   <buttongroup name="selected_manipulations_button_group"/>
-  <buttongroup name="multi_selection_button_group"/>
  </buttongroups>
 </ui>
