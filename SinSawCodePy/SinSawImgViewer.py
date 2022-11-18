@@ -788,6 +788,16 @@ class ViewWindow(QMainWindow, Ui_MainWindow):  # Основной виджет -
                         _.setEnabled(True)
                     for _ in self.selected_manipulations_button_group.buttons():
                         _.setEnabled(True)
+            else:
+                if len(self.current_selection) == 1:
+                    for _ in self.navigation_arrows_button_group.buttons():
+                        _.setEnabled(True)
+                    for _ in self.single_selection_button_group.buttons():
+                        _.setEnabled(False)
+                    for _ in self.multi_selection_button_group.buttons():
+                        _.setEnabled(False)
+                    for _ in self.selected_manipulations_button_group.buttons():
+                        _.setEnabled(True)
 
         else:
             for _ in self.navigation_arrows_button_group.buttons():
@@ -797,7 +807,7 @@ class ViewWindow(QMainWindow, Ui_MainWindow):  # Основной виджет -
             for _ in self.multi_selection_button_group.buttons():
                 _.setEnabled(False)
             for _ in self.selected_manipulations_button_group.buttons():
-                _.setEnabled(True)
+                _.setEnabled(False)
 
     def check_box_initialize(self):  # Функция, которая переинциализирует список тэгов. Выставляет State'ы.
         self.current_selected_tag_text = self.tag_choose_box.currentText()
