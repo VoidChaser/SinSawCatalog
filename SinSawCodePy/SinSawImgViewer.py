@@ -300,6 +300,8 @@ class ViewWindow(QMainWindow, Ui_MainWindow):  # Основной виджет -
                     self.preview_position = len(self.current_selection) - 1
                 if self.mode == 'tags':
                     self.table_widget_initialize_tags()
+                else:
+                    self.table_widget_initialize_folder()
                 self.show_imgs_preview()
 
     def resizeEvent(self,
@@ -307,6 +309,8 @@ class ViewWindow(QMainWindow, Ui_MainWindow):  # Основной виджет -
         # масштабировалось.
         if self.mode == 'tags':
             self.table_widget_initialize_tags()
+        else:
+            self.table_widget_initialize_folder()
         self.show_imgs_preview()
 
     def add_images_to_base(self, li):  # Функция для добавления изображения(ий) в базу данных.
@@ -643,7 +647,9 @@ class ViewWindow(QMainWindow, Ui_MainWindow):  # Основной виджет -
         self.repair_autoincrement()  # Функция "чинит" AutoIncrement в базе данных. После удаления элементов - он
         # Ломается, — пишет уже не 1, а 2, например. И его так надо чинить.
         if self.mode == 'tags':
-            self.table_widget_initialize_tags()  # Функция переинициализирует тэги в превью.
+            self.table_widget_initialize_tags()
+        else:
+            self.table_widget_initialize_folder() # Функция переинициализирует тэги в превью.
         self.show_imgs_preview()
 
     def delete_selected_all_image_tag(
@@ -672,6 +678,8 @@ class ViewWindow(QMainWindow, Ui_MainWindow):  # Основной виджет -
         self.repair_autoincrement()
         if self.mode == 'tags':
             self.table_widget_initialize_tags()
+        else:
+            self.table_widget_initialize_folder()
         self.show_imgs_preview()
 
     def delete_all_all_images_tags(self):  # Альтернативный запуск функции удаления всех тэгов всех выбранных файлов.
@@ -754,25 +762,26 @@ class ViewWindow(QMainWindow, Ui_MainWindow):  # Основной виджет -
     def navigation_tagging_checking_buttons_state_initialize(
             self):  # Функция редактирования State состояний ButtonGroup'ов
         if self.current_selection:
-            if len(self.current_selection) == 1:
-                for _ in self.navigation_arrows_button_group.buttons():
-                    _.setEnabled(True)
-                for _ in self.single_selection_button_group.buttons():
-                    _.setEnabled(True)
-                for _ in self.multi_selection_button_group.buttons():
-                    _.setEnabled(False)
-                for _ in self.selected_manipulations_button_group.buttons():
-                    _.setEnabled(True)
+            if self.tags:
+                if len(self.current_selection) == 1:
+                    for _ in self.navigation_arrows_button_group.buttons():
+                        _.setEnabled(True)
+                    for _ in self.single_selection_button_group.buttons():
+                        _.setEnabled(True)
+                    for _ in self.multi_selection_button_group.buttons():
+                        _.setEnabled(False)
+                    for _ in self.selected_manipulations_button_group.buttons():
+                        _.setEnabled(True)
 
-            else:
-                for _ in self.navigation_arrows_button_group.buttons():
-                    _.setEnabled(True)
-                for _ in self.single_selection_button_group.buttons():
-                    _.setEnabled(True)
-                for _ in self.multi_selection_button_group.buttons():
-                    _.setEnabled(True)
-                for _ in self.selected_manipulations_button_group.buttons():
-                    _.setEnabled(True)
+                else:
+                    for _ in self.navigation_arrows_button_group.buttons():
+                        _.setEnabled(True)
+                    for _ in self.single_selection_button_group.buttons():
+                        _.setEnabled(True)
+                    for _ in self.multi_selection_button_group.buttons():
+                        _.setEnabled(True)
+                    for _ in self.selected_manipulations_button_group.buttons():
+                        _.setEnabled(True)
 
         else:
             for _ in self.navigation_arrows_button_group.buttons():
@@ -819,6 +828,8 @@ class ViewWindow(QMainWindow, Ui_MainWindow):  # Основной виджет -
         if not res:
             self.name_out_label.setText('Изображения не найдены. Добавьте изображения.')
             self.dupe_check_button.setEnabled(False)
+            self.show_imgs_by_tag_button.setEnabled(False)
+            self.leave_out_button.setEnabled(False)
         else:
             self.name_out_label.setText('')
             self.tableWidget.setRowCount(len(res))
@@ -829,6 +840,9 @@ class ViewWindow(QMainWindow, Ui_MainWindow):  # Основной виджет -
                     self.tableWidget.setItem(i, j, QTableWidgetItem(str(val)))
             self.tableWidget.setHorizontalHeaderLabels(self.titles)
             self.dupe_check_button.setEnabled(True)
+            self.show_imgs_by_catalog_button.setEnabled(False)
+            self.show_imgs_by_tag_button.setEnabled(True)
+            self.leave_out_button.setEnabled(True)
 
     def table_widget_initialize_tags(
             self):  # Функция выполняет построение таблицы для работы с изображениями, выбранными по конкретному тэгу.
@@ -841,6 +855,8 @@ class ViewWindow(QMainWindow, Ui_MainWindow):  # Основной виджет -
             self.tableWidget.setRowCount(0)
             self.tableWidget.setColumnCount(0)
             self.dupe_check_button.setEnabled(False)
+            self.show_imgs_by_tag_button.setEnabled(False)
+            self.leave_out_button.setEnabled(False)
             self.deselect()
         else:
             self.name_out_label.setText('')
@@ -852,6 +868,9 @@ class ViewWindow(QMainWindow, Ui_MainWindow):  # Основной виджет -
                     self.tableWidget.setItem(i, j, QTableWidgetItem(str(val)))
             self.tableWidget.setHorizontalHeaderLabels(self.titles)
             self.dupe_check_button.setEnabled(True)
+            self.show_imgs_by_catalog_button.setEnabled(True)
+            self.show_imgs_by_tag_button.setEnabled(False)
+            self.leave_out_button.setEnabled(True)
 
     def repair_autoincrement(self):  # Функция, которая чинит AutoIncrement в полях базы данных.
         if not self.tags:
@@ -887,6 +906,7 @@ class ViewWindow(QMainWindow, Ui_MainWindow):  # Основной виджет -
 
     def run(self):  # Функция, которая готовит всё к нормальной работе.
         self.repair_autoincrement()
+        self.show_imgs_by_catalog_button.setEnabled(False)
         print(self.images)
         self.run_time = get_formated_date(time()).split(' ')[::]
         self.run_dir = os.getcwd().replace('\\', '/')
